@@ -71,6 +71,16 @@ CGO_ENABLED=0 GOOS=darwin  GOARCH=arm64 go build -o tmp/manyhosts-darwin-arm64 .
 CGO_ENABLED=0 GOOS=linux   GOARCH=amd64 go build -o tmp/manyhosts-linux-amd64 .
 ```
 
+## GitHub Actions
+
+推送 `v*` 标签（例如 `git tag v0.1.0 && git push origin v0.1.0`）会触发
+`.github/workflows/release.yml`：
+
+- 交叉编译 Windows amd64/arm64、macOS amd64/arm64、Linux amd64/arm64 六个目标
+- 上传为 GitHub Actions artifacts
+- 自动创建 Release 并把六个二进制作为附件发布
+- 手动触发 `workflow_dispatch` 只构建并上传 artifacts，不创建 Release
+
 `build.ps1` 使用 `-ldflags "-H=windowsgui"`，并在构建期间临时把
 `resources\manifest\admin_<arch>.syso`（由 `admin.manifest` 生成的
 `requireAdministrator` manifest）放入包目录，构建完移回，避免 `go test`
