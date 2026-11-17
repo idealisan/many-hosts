@@ -1,0 +1,8 @@
+# 构建产物与临时目录
+/tmp/
+/ManyHosts.exe
+/manyhosts
+*.exe
+
+# 构建时临时进入包目录的 syso
+/manifest_windows_*.syso
